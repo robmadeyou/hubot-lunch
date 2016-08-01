@@ -102,7 +102,7 @@ module.exports = (robot) ->
       msg.send "There are no orders yet"
     return
 
-  robot.hear /clear orders/i, (msg) ->
+  robot.hear /clear(\ all\ | )orders/i, (msg) ->
     lunches.clear()
     msg.send "POOF! All gone!"
     return
