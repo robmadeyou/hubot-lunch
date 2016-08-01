@@ -68,6 +68,9 @@ module.exports = (robot) ->
     order_count: () ->
       Object.keys(robot.brain.data.lunches.orders).length
 
+    random_person: () ->
+      return robot.brain.data.lunches.last[Math.floor(Math.random() * robot.brain.data.lunches.last.length)]
+
   robot.hear /order me (.*)/i, (msg) ->
     username = msg.message.user.name
     msg.send "Ordering " + msg.match[1] + " for " + username
@@ -126,6 +129,8 @@ module.exports = (robot) ->
       lunches.cancel(username)
       msg.send "But " + username + " will be hungry! On your head be it!"
     return
+  robot.hear /(who(\'s|) (turn|phones)(.+)in)/, (msg) ->
+    msg.send lunches.random_person + " is phoning it in"
 
   robot.hear /^lunch help$/i, (msg) ->
     msg.send "order me <your order> - to place an order\n" +
